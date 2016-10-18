@@ -106,7 +106,7 @@ public class RoleController {
 	
 	/**
 	 * 新增、编辑角色页面的提交处理。保存角色实体，并返回角色列表视图
-	 * @param user
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)

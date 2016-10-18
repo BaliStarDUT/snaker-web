@@ -22,7 +22,7 @@
 				<tr>
 					<td class="td_table_1"><span>借款人：</span></td>
 					<td class="td_table_2">
-						&nbsp;<shiro:principal/>
+						&nbsp;<!--shiro:principal/-->
 					</td>
 					<td class="td_table_1"><span>借款日期：</span></td>
 					<td class="td_table_2">

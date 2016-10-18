@@ -12,7 +12,7 @@
 <div id="header">
   <div class="logo"><img src="${ctx }/styles/images/snaker.png" alt="Snaker"/></div>
     <ul class="qj">
-      <li style="width: 100px;"><span><shiro:principal/></span></li>
+      <li style="width: 100px;"><span><!--shiro:principal/--></span></li>
       <li></li>
       <li class="top_aqtc" ><a href="javascript:void(0)" onclick="window.parent.location.href='${ctx }/logout'">安全退出<b></b></a></li>
     </ul>

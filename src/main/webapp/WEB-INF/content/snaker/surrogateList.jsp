@@ -36,9 +36,9 @@
 		<table align="center" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td align="left">
-				<shiro:hasPermission name="RESOURCEEDIT">
+				<!--shiro:hasPermission name="RESOURCEEDIT"-->
 					<input type='button' onclick="addNew('${ctx}/snaker/surrogate/create')" class='button_70px' value='新建'/>
-				</shiro:hasPermission>
+				<!--/shiro:hasPermission-->
 					<input type='submit' class='button_70px' value='查询'/>
 				</td>
 			</tr>

@@ -77,7 +77,7 @@ public class DynamicFormController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(Form form) {
-        form.setCreator(ShiroUtils.getUsername());
+        form.setCreator("admin");
         form.setCreateTime(DateUtils.getCurrentTime());
         form.setFieldNum(0);
         dynamicFormManager.save(form);

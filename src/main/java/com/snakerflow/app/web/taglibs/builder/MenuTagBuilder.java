@@ -76,7 +76,8 @@ public class MenuTagBuilder implements TagBuilder {
 	 */
 	private List<Menu> getAllowedAccessMenu() {
 		MenuManager menuManager = springContext.getBean(MenuManager.class);
-		return menuManager.getAllowedAccessMenu(ShiroUtils.getUserId());
+		//return menuManager.getAllowedAccessMenu(ShiroUtils.getUserId());
+		return menuManager.getAllowedAccessMenu(1L);
 	}
 
 	/**

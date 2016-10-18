@@ -65,8 +65,10 @@ public class FlowController {
      */
     @RequestMapping(value = "ccread")
     public String ccread(String id, String url) {
-        List<String> list = ShiroUtils.getGroups();
-        list.add(ShiroUtils.getUsername());
+        List<String> list = new ArrayList<String>();
+        list.add("admin");
+        //List<String> list = ShiroUtils.getGroups();
+        //list.add(ShiroUtils.getUsername());
         String[] assignees = new String[list.size()];
         list.toArray(assignees);
         facets.getEngine().order().updateCCStatus(id, assignees);
@@ -119,7 +121,7 @@ public class FlowController {
         String taskId = request.getParameter(PARA_TASKID);
         String nextOperator = request.getParameter(PARA_NEXTOPERATOR);
         if (StringUtils.isEmpty(orderId) && StringUtils.isEmpty(taskId)) {
-            facets.startAndExecute(processId, ShiroUtils.getUsername(), params);
+            facets.startAndExecute(processId, "admin", params);
         } else {
             String methodStr = request.getParameter(PARA_METHOD);
             int method;
@@ -130,29 +132,29 @@ public class FlowController {
             }
             switch(method) {
                 case 0://任务执行
-                    facets.execute(taskId, ShiroUtils.getUsername(), params);
+                    facets.execute(taskId, "admin", params);
                     break;
                 case -1://驳回、任意跳转
-                    facets.executeAndJump(taskId, ShiroUtils.getUsername(), params, request.getParameter(PARA_NODENAME));
+                    facets.executeAndJump(taskId, "admin", params, request.getParameter(PARA_NODENAME));
                     break;
                 case 1://转办
                     if(StringUtils.isNotEmpty(nextOperator)) {
-                        facets.transferMajor(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                        facets.transferMajor(taskId, "admin", nextOperator.split(","));
                     }
                     break;
                 case 2://协办
                     if(StringUtils.isNotEmpty(nextOperator)) {
-                        facets.transferAidant(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                        facets.transferAidant(taskId, "admin", nextOperator.split(","));
                     }
                     break;
                 default:
-                    facets.execute(taskId, ShiroUtils.getUsername(), params);
+                    facets.execute(taskId, "admin", params);
                     break;
             }
         }
         String ccOperator = request.getParameter(PARA_CCOPERATOR);
         if(StringUtils.isNotEmpty(ccOperator)) {
-            facets.getEngine().order().createCCOrder(orderId, ShiroUtils.getUsername(), ccOperator.split(","));
+            facets.getEngine().order().createCCOrder(orderId, "admin", ccOperator.split(","));
         }
         return "redirect:/snaker/task/active";
     }
@@ -222,12 +224,12 @@ public class FlowController {
     @RequestMapping(value = "doApproval", method = RequestMethod.POST)
     public String doApproval(Approval model) {
         model.setOperateTime(new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
-        model.setOperator(ShiroUtils.getUsername());
+        model.setOperator("admin");
         manager.save(model);
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("result", model.getResult());
-        facets.execute(model.getTaskId(), ShiroUtils.getUsername(), params);
-        return "redirect:/snaker/task/active";
-    }
+        facets.execute(model.getTaskId(), "admin", params);
+		return "redirect:/snaker/task/active";
+	}
 }

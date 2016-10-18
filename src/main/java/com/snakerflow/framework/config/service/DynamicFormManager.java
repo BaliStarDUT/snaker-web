@@ -131,7 +131,7 @@ public class DynamicFormManager {
                        HttpServletRequest request, String processId, String orderId, String taskId) {
         if(StringUtils.isNotEmpty(processId)) {
             if (StringUtils.isEmpty(orderId) && StringUtils.isEmpty(taskId)) {
-                orderId = facets.startAndExecute(processId, ShiroUtils.getUsername(), params).getId();
+                orderId = facets.startAndExecute(processId, "admin", params).getId();
             } else {
                 int method = 0;
                 String methodStr = request.getParameter("method");
@@ -141,23 +141,23 @@ public class DynamicFormManager {
                 String nextOperator = request.getParameter("nextOperator");
                 switch(method) {
                     case 0://任务执行
-                        facets.execute(taskId, ShiroUtils.getUsername(), params);
+                        facets.execute(taskId, "admin", params);
                         break;
                     case -1://驳回、任意跳转
-                        facets.executeAndJump(taskId, ShiroUtils.getUsername(), params, request.getParameter("nodeName"));
+                        facets.executeAndJump(taskId, "admin", params, request.getParameter("nodeName"));
                         break;
                     case 1://转办
                         if(StringUtils.isNotEmpty(nextOperator)) {
-                            facets.transferMajor(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                            facets.transferMajor(taskId, "admin", nextOperator.split(","));
                         }
                         break;
                     case 2://协办
                         if(StringUtils.isNotEmpty(nextOperator)) {
-                            facets.transferAidant(taskId, ShiroUtils.getUsername(), nextOperator.split(","));
+                            facets.transferAidant(taskId, "admin", nextOperator.split(","));
                         }
                         break;
                     default:
-                        facets.execute(taskId, ShiroUtils.getUsername(), params);
+                        facets.execute(taskId, "admin", params);
                         break;
                 }
             }

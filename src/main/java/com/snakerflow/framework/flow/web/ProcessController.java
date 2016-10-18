@@ -222,7 +222,7 @@ public class ProcessController {
 	
 	@RequestMapping(value = "start", method=RequestMethod.GET)
 	public String processStart(Model model, String processName) {
-		facets.startInstanceByName(processName, null, ShiroUtils.getUsername(), null);
+		facets.startInstanceByName(processName, null, "admin", null);
 		return "redirect:/snaker/process/list";
 	}
 	

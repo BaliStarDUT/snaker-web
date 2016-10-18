@@ -14,6 +14,7 @@
  */
 package com.snakerflow.framework.flow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.snaker.engine.impl.GeneralAccessStrategy;
@@ -26,6 +27,9 @@ import com.snakerflow.framework.security.shiro.ShiroUtils;
  */
 public class CustomAccessStrategy extends GeneralAccessStrategy {
 	protected List<String> ensureGroup(String operator) {
-		return ShiroUtils.getGroups();
+		List<String> result=new ArrayList<String>();
+		result.add("admin");
+		return result;
+		//return ShiroUtils.getGroups();
 	}
 }
